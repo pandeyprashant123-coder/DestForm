@@ -105,7 +105,7 @@ const Form = () => {
                 {
                   includesFields.map((field,index)=>{
                     return(
-                          <div className='flex'>
+                          <div className='flex' key={field.id}>
                             <textarea {...register(`includes.${index}.list`)} className='w-full'/>
                           {
                             index>0 &&(
@@ -125,7 +125,7 @@ const Form = () => {
                 {
                   excludesFields.map((field,index)=>{
                     return(
-                          <div className='flex'>
+                          <div className='flex' key={field.id}>
                             <textarea {...register(`excludes.${index}.list`)} className='w-full'/>
                           {
                             index>0 &&(
@@ -145,7 +145,7 @@ const Form = () => {
                 {
                   packagingFields.map((field,index)=>{
                     return(
-                          <div className='flex'>
+                          <div className='flex' key={field.id}>
                             <textarea {...register(`packaging_list.${index}.list`)} className='w-full'/>
                           {
                             index>0 &&(
