@@ -27,10 +27,31 @@ const Form = () => {
         includes:[{list:""}],
         excludes:[{list:""}],
         packaging_list:[{list:""}],
-        
+        paymentInfo:"",
+        cancellationDetails:"",
+        insurance:"",
+        faq:""
       }
     });
-    const onSubmit = data => console.log(data);
+    const onSubmit =async (data) =>{ 
+      // e.preventDefault()
+      console.log(data);
+      const response = await fetch('/api/form',{
+        method:'POST',
+        body:JSON.stringify(data)
+      })
+
+      // try {
+      //   // if (response.ok) {
+      //   //   router
+      //   // }
+      // } catch (error) {
+      //   console.log("this",error)
+      // }
+    }
+    const onError=(errors)=>{
+      console.log("form errors",errors)
+    }
     const {fields:itineraryFields,append:itineraryAppend,remove:itineraryRemove} = useFieldArray({
       name:'itinerary',
       control,
@@ -48,7 +69,7 @@ const Form = () => {
       control,
      })
     return (
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-1/2 m-auto gap-5 my-5'>
+      <form onSubmit={handleSubmit(onSubmit,onError)} className='flex flex-col w-1/2 m-auto gap-5 my-5'>
         <div className='flex flex-col'>
             <label htmlFor='region'>Region</label>
             <input id='region' {...register("region")} />
@@ -173,6 +194,14 @@ const Form = () => {
             <input id='' {...register("")} /> */}
 
         </div>
+        <label htmlFor='paymentInfo'>paymentInfo</label>
+        <input id='paymentInfo' {...register("paymentInfo")} />
+        <label htmlFor='cancellationDetails'>cancellationDetails</label>
+        <input id='cancellationDetails' {...register("cancellationDetails")} />
+        <label htmlFor='insurance'>insurance</label>
+        <input id='insurance' {...register("insurance")} />
+        <label htmlFor='faq'>faq</label>
+        <input id='faq' {...register("faq")} />
         <input type="submit" />
       </form>
     )
