@@ -43,7 +43,7 @@ const Form = () => {
         body:JSON.stringify(data)
       })
       console.log(response)
-      if (response.ok) {
+      if (!response.ok) {
         alert('form submitted')
         router.push('/')
       }
