@@ -1,10 +1,12 @@
-"use client"
+'use client';
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 import { useForm ,useFieldArray} from "react-hook-form";
 import { MdFormatListBulletedAdd,MdDeleteForever,MdAddCircle } from "react-icons/md";
 
 const Form = () => {
+  const router = useRouter()
     const { register, handleSubmit,control } = useForm({
       defaultValues:{
         region:"",
@@ -40,14 +42,12 @@ const Form = () => {
         method:'POST',
         body:JSON.stringify(data)
       })
+      console.log(response)
+      if (response.ok) {
+        alert('form submitted')
+        router.push('/')
+      }
 
-      // try {
-      //   // if (response.ok) {
-      //   //   router
-      //   // }
-      // } catch (error) {
-      //   console.log("this",error)
-      // }
     }
     const onError=(errors)=>{
       console.log("form errors",errors)
@@ -69,7 +69,7 @@ const Form = () => {
       control,
      })
     return (
-      <form onSubmit={handleSubmit(onSubmit,onError)} className='flex flex-col w-1/2 m-auto gap-5 my-5'>
+      <form onSubmit={handleSubmit(onSubmit,onError)} className='flex flex-col lg:w-1/2 m-auto gap-5 my-5 p-3'>
         <div className='flex flex-col'>
             <label htmlFor='region'>Region</label>
             <input id='region' {...register("region")} />
@@ -193,16 +193,16 @@ const Form = () => {
             <label htmlFor=''></label>
             <input id='' {...register("")} /> */}
 
+          <label htmlFor='paymentInfo'>paymentInfo</label>
+          <input id='paymentInfo' {...register("paymentInfo")} />
+          <label htmlFor='cancellationDetails'>cancellationDetails</label>
+          <input id='cancellationDetails' {...register("cancellationDetails")} />
+          <label htmlFor='insurance'>insurance</label>
+          <input id='insurance' {...register("insurance")} />
+          <label htmlFor='faq'>faq</label>
+          <input id='faq' {...register("faq")} />
         </div>
-        <label htmlFor='paymentInfo'>paymentInfo</label>
-        <input id='paymentInfo' {...register("paymentInfo")} />
-        <label htmlFor='cancellationDetails'>cancellationDetails</label>
-        <input id='cancellationDetails' {...register("cancellationDetails")} />
-        <label htmlFor='insurance'>insurance</label>
-        <input id='insurance' {...register("insurance")} />
-        <label htmlFor='faq'>faq</label>
-        <input id='faq' {...register("faq")} />
-        <input type="submit" />
+        <input type="submit" className='bg-amber-600 w-28 rounded-md'/>
       </form>
     )
 }
